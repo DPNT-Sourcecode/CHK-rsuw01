@@ -63,7 +63,9 @@ def get_applicable_discounts(basket):
 
 
 def prioritised_applicable_offers(basket):
-    return get_applicable_discounts(basket).sort(key=lambda x: calculate_discount_savings(x))
+    offers = get_applicable_discounts(basket)
+    offers.sort(key=lambda x: calculate_discount_savings(x[1]))
+    return offers
 
 
 def apply_discounts(basket):
@@ -115,4 +117,5 @@ checkout("B"),  # 30
 checkout("C"),  # 20
 checkout("D"),  # 15
 checkout("a"),  # -1
+
 
