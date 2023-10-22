@@ -74,6 +74,17 @@ def prioritised_applicable_offers(basket):
     return offers
 
 
+def free_excess(amount, returned):
+    """
+    Given FFFFF return FFFF (i.e. given an amount of 5, the amount of free ones we can get is 1 without ruining the deal
+    :param amount:
+    :param returned:
+    :return:
+    """
+    returnable = amount // returned # Given 3 and 1, this is 1. Given 5 and 1, this is 1
+
+
+
 def apply_to_basket(offer, basket):
     """
     Apply to basket as many times as possible before returning the basket
@@ -181,6 +192,7 @@ print(checkout("FFFFF") == 40)  # 40
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
+
 
 
 
