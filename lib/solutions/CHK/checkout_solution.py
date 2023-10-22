@@ -74,18 +74,30 @@ def prioritised_applicable_offers(basket):
     return offers
 
 
-def reduce_free_excess(amount, required, returned):
+def reduce_free_excess(in_basket, required_for_deal, to_remove):
     """
     Given FFFFF return FFFF (i.e. given an amount of 5, the amount of free ones we can get is 1 without ruining the deal
     :param amount:
     :param returned:
     :return:
+
+    2, 2, 1 > 2 payable, 0 free
+    3, 2, 1 > 2 payable, 1 free
+    4, 2, 1 > 3 payable, 1 free
+    5, 2, 1 > 4 payable, 1 free
+    6, 2, 1 > 4 payable, 2 free
+    7, 2, 1 > 5 payable, 2 free
+    8, 2, 1 > 6 payable, 2 free
+
     """
-    returnable = amount // returned # Given 3 and 1, this is 1. Given 5 and 1, this is 1
-    print(amount, required, returned, returnable)
-    returnable = amount % required
-    print(amount, required, returned, returnable, "\n\n")
-    return returnable
+    used = 0
+    saved = 0
+    while in_basket > 0:
+        in_basket = in_basket - required_for_deal
+        used += required_for_deal
+        saved += to_remove
+        print("U:%d, S:%d, B:%s" % (used, saved, in_basket))
+    return 1
 
 
 
@@ -179,3 +191,4 @@ print(checkout("FFFFF") == 40)  # 40
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
+
