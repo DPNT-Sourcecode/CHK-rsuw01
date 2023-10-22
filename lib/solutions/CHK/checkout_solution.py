@@ -46,9 +46,6 @@ def calculate_discount_savings(offer):
     return savings
 
 
-def prioritised_offers():
-    return specials.sort(key=lambda x: calculate_discount_savings(x))
-
 def get_applicable_discounts(basket):
     applicable_offers = []
     for code, count in basket.items():
@@ -65,13 +62,17 @@ def get_applicable_discounts(basket):
     return applicable_offers
 
 
+def prioritised_applicable_offers(basket):
+    return get_applicable_discounts(basket).sort(key=lambda x: calculate_discount_savings(x))
+
+
 def apply_discounts(basket):
     """
     Return a reduced count of items in the basket, and the cost of what offers were applied
     :param basket:
     :return:
     """
-    print(get_applicable_discounts(basket))
+    print(prioritised_applicable_offers(basket))
     cost_of_discounted = []
     # for code, count in basket.items():
     #     if code not in specials:
@@ -114,7 +115,3 @@ print(checkout("B"), 30)
 print(checkout("C"), 20)
 print(checkout("D"), 15)
 print(checkout("a"), -1)
-
-
-
-
