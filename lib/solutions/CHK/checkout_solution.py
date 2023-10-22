@@ -14,6 +14,26 @@ Our price table and offers:
 | D    | 15    |                        |
 | E    | 40    | 2E get one B free      |
 | F    | 10    | 2F get one F free      |
+| G    | 20    |                        |
+| H    | 10    | 5H for 45, 10H for 80  |
+| I    | 35    |                        |
+| J    | 60    |                        |
+| K    | 80    | 2K for 150             |
+| L    | 90    |                        |
+| M    | 15    |                        |
+| N    | 40    | 3N get one M free      |
+| O    | 10    |                        |
+| P    | 50    | 5P for 200             |
+| Q    | 30    | 3Q for 80              |
+| R    | 50    | 3R get one Q free      |
+| S    | 30    |                        |
+| T    | 20    |                        |
+| U    | 40    | 3U get one U free      |
+| V    | 50    | 2V for 90, 3V for 130  |
+| W    | 20    |                        |
+| X    | 90    |                        |
+| Y    | 10    |                        |
+| Z    | 50    |                        |
 +------+-------+------------------------+
 """
 
@@ -24,14 +44,42 @@ prices = {
     "D": 15,
     "E": 40,
     "F": 10,
+    "G": 20,
+    "H": 10,
+    "I": 35,
+    "J": 60,
+    "K": 80,
+    "L": 90,
+    "M": 15,
+    "N": 40,
+    "O": 10,
+    "P": 50,
+    "Q": 30,
+    "R": 50,
+    "S": 30,
+    "T": 20,
+    "U": 40,
+    "V": 50,
+    "W": 20,
+    "X": 90,
+    "Y": 10,
+    "Z": 50,
 }
 
-# Item code: [(required amount, deal type, return)]
+# Item code: [((req_item_amount, req_item_code), deal type, reward_amount||(free_item_count, free_item_code)))]
 specials = {
     "A": [((3, "A"), "NORMAL", 130), ((5, "A"), "NORMAL", 200)],
     "B": [((2, "B"), "NORMAL", 45)],
     "E": [((2, "E"), "FREE", (1, "B"))],
     "F": [((2, "F"), "FREE", (1, "F"))],
+    "H": [((5, "H"), "NORMAL", 45), ((10, "H"), "NORMAL", 80)],
+    "K": [((2, "K"), "NORMAL", 150)],
+    "N": [((3, "N"), "FREE", (1, "M"))],
+    "P": [((5, "P"), "NORMAL", 200)],
+    "Q": [((3, "Q"), "NORMAL", 80)],
+    "R": [((3, "R"), "FREE", (1, "Q"))],
+    "U": [((3, "U"), "FREE", (1, "U"))],
+    "V": [((2, "V"), "NORMAL", 90), ((3, "V"), "NORMAL", 130)],
 }
 
 
@@ -199,3 +247,4 @@ def checkout(skus):
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
+
