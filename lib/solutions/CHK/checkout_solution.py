@@ -93,7 +93,11 @@ def apply_to_basket(offer, basket):
             # if amount in basket is 3, excess is 1, so if excess, reduce amount by offer return amount
             excess = amount_in_basket-requirements[0] # E.g. FFF => 1
             # Self reduction
-            applications = excess // offer_return
+            removable = offer_return[0]
+            while excess > 0:
+                excess = basket[requirements[1]] - requirements[0] # Basket amount - required amount
+
+                basket[offer_key] = basket[offer_key] - removable # Remove 1 each time essentially for F
 
         else:
             fits = amount_in_basket // requirements[0]
@@ -177,5 +181,6 @@ print(checkout("FFFFF") == 40)  # 40
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
+
 
 
