@@ -83,6 +83,8 @@ def reduce_free_excess(amount, required, returned):
     """
     returnable = amount // returned # Given 3 and 1, this is 1. Given 5 and 1, this is 1
     print(amount, required, returned, returnable)
+    returnable = amount % required
+    print(amount, required, returned, returnable, "\n\n")
     return returnable
 
 
@@ -177,6 +179,7 @@ print(checkout("FFFFF") == 40)  # 40
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
+
 
 
 
