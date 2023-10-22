@@ -84,13 +84,16 @@ def apply_to_basket(offer, basket):
     requirements = offer[0]
     offer_type = offer[1]
     offer_return = offer[2]
+    offer_key = offer_return[1]
     saved = 0
     if offer_type == "FREE":
         # Remove only B from the basket, original item not removed
         amount_in_basket = basket[requirements[1]]
-        fits = amount_in_basket // requirements[0]
+        if offer_key == requirements[1]:
+            fits = (amount_in_basket-requirements[0]) // requirements[0]
+        else:
+            fits = amount_in_basket // requirements[0]
         # Reduce basket by amount
-        offer_key = offer_return[1]
         if offer_key in basket:
             basket[offer_key] = basket[offer_key] - (fits*offer_return[0])
     if offer_type == "NORMAL":
@@ -168,6 +171,7 @@ checkout("FFFF")  # 40
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
+
 
 
 
