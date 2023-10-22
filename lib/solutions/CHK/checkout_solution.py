@@ -25,10 +25,23 @@ prices = {
 }
 
 specials = {
-    "A": (3, 130),
-    "B": (2, 45),
+    "A": [(3, "NORMAL", 130), (5, "NORMAL", 200)],
+    "B": [(2, "NORMAL", 45)],
+    "E": [(2, "FREE", (1, "B"))],
 }
 
+def get_applicable_discounts(basket):
+    for code, count in basket.items():
+        if code not in specials:
+            continue
+
+        offers_for_code = specials[code]
+        applicable_offers = []
+        for offer in offers_for_code:
+            if count >= offer[0]:
+                applicable_offers.append(offer)
+
+    return applicable_offers
 
 def apply_discounts(basket):
     """
@@ -36,6 +49,7 @@ def apply_discounts(basket):
     :param basket:
     :return:
     """
+    print(get_applicable_discounts(basket))
     cost_of_discounted = []
     for code, count in basket.items():
         if code not in specials:
@@ -75,3 +89,4 @@ def checkout(skus):
 # print(checkout("C"))
 # print(checkout("D"))
 # print(checkout("a"))
+
