@@ -72,6 +72,11 @@ def prioritised_applicable_offers(basket):
 
 
 def apply_to_basket(offer, basket):
+    requirements = offer[0]
+    offer_type = offer[1]
+    if offer_type == "FREE":
+        amount_in_basket = basket[requirements[1]]
+        fits = requirements[0] // amount_in_basket
     return basket
 
 
@@ -127,6 +132,7 @@ checkout("B"),  # 30
 checkout("C"),  # 20
 checkout("D"),  # 15
 checkout("a"),  # -1
+
 
 
 
