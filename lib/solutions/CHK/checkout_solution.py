@@ -24,12 +24,30 @@ prices = {
     "E": 40,
 }
 
-specials = {
-    "A": [(3, "NORMAL", 130), (5, "NORMAL", 200)],
-    "B": [(2, "NORMAL", 45)],
-    "E": [(2, "FREE", (1, "B"))],
-}
+# Item code: [(required amount, deal type, return)]
+specials = [
+    ((3, "A"), "NORMAL", 130), ((5, "A"), "NORMAL", 200),
+    ((2, "B"), "NORMAL", 45),
+    ((2, "E"), "FREE", (1, "B")),
+]
 
+
+def calculate_discount_savings(offer):
+    offer_required = offer[0]
+    offer_type = offer[1]
+    offer_return = offer[2]
+    savings = 0
+    if offer_type == "NORMAL":
+        expected_to_pay = prices[offer_required[1]]
+        savings = expected_to_pay - offer_return
+    if offer_type == "FREE":
+        expected_to_pay = prices[offer_return[1]]
+        savings = expected_to_pay
+    return savings
+
+
+def prioritised_offers():
+    return specials.sort(key=lambda x: calculate_discount_savings(x))
 
 def get_applicable_discounts(basket):
     applicable_offers = []
@@ -96,6 +114,7 @@ print(checkout("B"), 30)
 print(checkout("C"), 20)
 print(checkout("D"), 15)
 print(checkout("a"), -1)
+
 
 
 
