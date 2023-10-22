@@ -52,21 +52,11 @@ def checkout(skus):
     for item in skus:
         basket[item] = basket.get(item, 0) + 1
 
-    print(basket)
-    # We have a count of the items, we need some way to define the special offers to apply the discord
-    new_basket, discount_costs = apply_discounts(basket)
-    print(new_basket, discount_costs)
+    no_discount_basket, discount_costs = apply_discounts(basket)
 
     total = 0
-    for code, quant in new_basket.items():
+    for code, quant in no_discount_basket.items():
         total += prices[code]*quant
     total += sum(discount_costs)
     return total
-
-print(checkout(["A", "A", "A", "B", "D", "B"]))
-print(checkout(["A", "A", "A", "A", "A", "A", "A", "B", "D"]))
-
-
-
-
 
