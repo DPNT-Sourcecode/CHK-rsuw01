@@ -47,6 +47,8 @@ def apply_discounts(basket):
 
 
 def checkout(skus):
+    skus = skus.split()
+    
     basket = {}
     # Remap to count
     for item in skus:
@@ -59,4 +61,5 @@ def checkout(skus):
         total += prices[code]*quant
     total += sum(discount_costs)
     return total
+
 
