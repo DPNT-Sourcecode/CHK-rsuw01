@@ -199,10 +199,3 @@ def checkout(skus):
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
-
-
-
-
-
-
-
