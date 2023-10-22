@@ -57,9 +57,15 @@ def checkout(skus):
     new_basket, discount_costs = apply_discounts(basket)
     print(new_basket, discount_costs)
 
+    total = 0
+    for code, quant in new_basket.items():
+        total += prices[code]*quant
+    total += sum(discount_costs)
+    return total
 
 print(checkout(["A", "A", "A", "B", "D", "B"]))
 print(checkout(["A", "A", "A", "A", "A", "A", "A", "B", "D"]))
+
 
 
 
