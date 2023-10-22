@@ -47,6 +47,8 @@ def apply_discounts(basket):
 
 
 def checkout(skus):
+    if not skus or not isinstance(skus, str):
+        return -1
     skus = [x.upper() for x in skus]
     basket = {}
     # Remap to count
@@ -61,7 +63,14 @@ def checkout(skus):
     total += sum(discount_costs)
     return total
 
-print(checkout("AAABDB"))
-print(checkout("AAAAAAABDCC"))
+# print(checkout("AAABDB"))
+# print(checkout("AAAAAAABDCC"))
+print(checkout(""))
+print(checkout("A"))
+print(checkout("B"))
+print(checkout("C"))
+print(checkout("D"))
+print(checkout("a"))
+
 
 
