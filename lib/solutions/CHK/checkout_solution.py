@@ -55,14 +55,14 @@ def apply_discounts(basket):
     """
     print(get_applicable_discounts(basket))
     cost_of_discounted = []
-    for code, count in basket.items():
-        if code not in specials:
-            continue
-        required_items = specials[code][0]
-        if count >= required_items:
-            fits = count // required_items
-            basket[code] = basket[code] - fits*required_items
-            cost_of_discounted.append(fits*specials[code][1])
+    # for code, count in basket.items():
+    #     if code not in specials:
+    #         continue
+    #     required_items = specials[code][0]
+    #     if count >= required_items:
+    #         fits = count // required_items
+    #         basket[code] = basket[code] - fits*required_items
+    #         cost_of_discounted.append(fits*specials[code][1])
     return basket, cost_of_discounted
 
 
@@ -85,13 +85,17 @@ def checkout(skus):
     total += sum(discount_costs)
     return total
 
-# # print(checkout("AAABDB"), )
-# # print(checkout("AAAAAAABDCC"), 385)
-# print(checkout(""), 0)
-# print(checkout("A"), 50)
-# print(checkout("B"), 30)
-# print(checkout("C"), 20)
-# print(checkout("D"), 15)
-# print(checkout("a"), -1)
+
+print(checkout("AAABDB"), 190)
+print(checkout("AAAAAAABDCC"), 385)
+print(checkout("BBBEE"), 95)  # 2B, 2E.
+print(checkout("BBBBEE"), 155)  # 2B+1B+2E = 45+30+80 = 75+80
+print(checkout(""), 0)
+print(checkout("A"), 50)
+print(checkout("B"), 30)
+print(checkout("C"), 20)
+print(checkout("D"), 15)
+print(checkout("a"), -1)
+
 
 
