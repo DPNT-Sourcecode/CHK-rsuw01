@@ -88,6 +88,16 @@ def reduce_free_excess(in_basket, required_for_deal, to_remove):
     6, 2, 1 > 4 payable, 2 free
     7, 2, 1 > 5 payable, 2 free
     8, 2, 1 > 6 payable, 2 free
+    9, 2, 1 > 6 payable, 3 free
+    FFFFFFFFF
+
+    6:
+        6 - 2 = 4
+        4 - 1
+        3 - 2 = 1
+        1 - 1
+
+        saved twice, free 2
 
     7:
         sub req: 7 - 2 = 5
@@ -104,13 +114,13 @@ def reduce_free_excess(in_basket, required_for_deal, to_remove):
     while in_basket // required_for_deal > 0: # 5, 2
         used += required_for_deal
         in_basket -= required_for_deal
-        if in_basket > to_remove:
+        if in_basket >= to_remove:
             saved += to_remove
             in_basket -= to_remove
             sav_count += 1
-        print("%d, %d, %d > %d payable, %d free %d" % (old_basket, required_for_deal, to_remove, used, saved, sav_count))
+        # print("%d, %d, %d > %d payable, %d free %d" % (old_basket, required_for_deal, to_remove, used, saved, sav_count))
         # print("U:%d, S:%d, B:%s" % (used, saved, in_basket))
-    return 1
+    return sav_count
 
 
 
@@ -191,6 +201,7 @@ print(checkout("FFFFF") == 40)  # 40
 print(checkout("FFFFFF") == 40)  # 40
 print(checkout("FFFFFFF") == 50)  # 40
 print(checkout("FFFFFFFF") == 60)  # 40
+print(checkout("FFFFFFFFF") == 60)  # 40
 
 
 # checkout("EE")  # 80
@@ -207,6 +218,7 @@ print(checkout("FFFFFFFF") == 60)  # 40
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
+
 
 
 
