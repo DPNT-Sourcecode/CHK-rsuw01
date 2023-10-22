@@ -25,11 +25,11 @@ prices = {
 }
 
 # Item code: [(required amount, deal type, return)]
-specials = [
-    ((3, "A"), "NORMAL", 130), ((5, "A"), "NORMAL", 200),
-    ((2, "B"), "NORMAL", 45),
-    ((2, "E"), "FREE", (1, "B")),
-]
+specials = {
+    "A": [((3, "A"), "NORMAL", 130), ((5, "A"), "NORMAL", 200)],
+    "B": [((2, "B"), "NORMAL", 45)],
+    "E": [((2, "E"), "FREE", (1, "B"))],
+}
 
 
 def calculate_discount_savings(offer):
@@ -54,8 +54,8 @@ def get_applicable_discounts(basket):
 
         offers_for_code = specials[code]
         for offer in offers_for_code:
-            if count >= offer[0]:
-                required_items = offer[0]
+            required_items = offer[0][0]
+            if count >= required_items:
                 fits = count // required_items
                 applicable_offers.append((fits, offer))
 
@@ -105,13 +105,14 @@ def checkout(skus):
     return total
 
 
-print(checkout("AAABDB"), 190)
-print(checkout("AAAAAAABDCC"), 385)
-print(checkout("BBBEE"), 95)  # 2B, 2E.
-print(checkout("BBBBEE"), 155)  # 2B+1B+2E = 45+30+80 = 75+80
-print(checkout(""), 0)
-print(checkout("A"), 50)
-print(checkout("B"), 30)
-print(checkout("C"), 20)
-print(checkout("D"), 15)
-print(checkout("a"), -1)
+checkout("AAABDB")  # 190)
+checkout("AAAAAAABDCC")  # 385)
+checkout("BBBEE")  # 95  # 2B, 2E.
+checkout("BBBBEE")  # 155  # 2B+1B+2E = 45+30+80 = 75+80
+checkout(""),  # 0
+checkout("A"),  # 50
+checkout("B"),  # 30
+checkout("C"),  # 20
+checkout("D"),  # 15
+checkout("a"),  # -1
+
