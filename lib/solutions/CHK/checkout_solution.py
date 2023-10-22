@@ -13,6 +13,7 @@ Our price table and offers:
 | C    | 20    |                        |
 | D    | 15    |                        |
 | E    | 40    | 2E get one B free      |
+| F    | 10    | 2F get one F free      |
 +------+-------+------------------------+
 """
 
@@ -22,6 +23,7 @@ prices = {
     "C": 20,
     "D": 15,
     "E": 40,
+    "F": 10,
 }
 
 # Item code: [(required amount, deal type, return)]
@@ -29,6 +31,7 @@ specials = {
     "A": [((3, "A"), "NORMAL", 130), ((5, "A"), "NORMAL", 200)],
     "B": [((2, "B"), "NORMAL", 45)],
     "E": [((2, "E"), "FREE", (1, "B"))],
+    "F": [((2, "F"), "FREE", (1, "F"))],
 }
 
 
@@ -146,21 +149,26 @@ def checkout(skus):
     print(total)
     return total
 
+checkout("FF")  # 20
+checkout("FFF")  # 20
+checkout("FFFF")  # 40
 
-checkout("EE")  # 80
-checkout("EEB")  # 80
-checkout("EEEB")  # 120
 
-checkout("AAABDB")  # 190)
-checkout("AAAAAAABDCC")  # 385)
-checkout("BBBEE")  # 125  # 2B deal + 2E = 45+80.
-checkout("BBBBEE")  # 155  # 2B+1B+2E = 45+30+80 = 75+80
-checkout(""),  # 0
-checkout("A"),  # 50
-checkout("B"),  # 30
-checkout("C"),  # 20
-checkout("D"),  # 15
-checkout("a"),  # -1
+# checkout("EE")  # 80
+# checkout("EEB")  # 80
+# checkout("EEEB")  # 120
+#
+# checkout("AAABDB")  # 190)
+# checkout("AAAAAAABDCC")  # 385)
+# checkout("BBBEE")  # 125  # 2B deal + 2E = 45+80.
+# checkout("BBBBEE")  # 155  # 2B+1B+2E = 45+30+80 = 75+80
+# checkout(""),  # 0
+# checkout("A"),  # 50
+# checkout("B"),  # 30
+# checkout("C"),  # 20
+# checkout("D"),  # 15
+# checkout("a"),  # -1
+
 
 
 
