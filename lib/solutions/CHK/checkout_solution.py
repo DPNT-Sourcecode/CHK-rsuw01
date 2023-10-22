@@ -76,11 +76,11 @@ def prioritised_applicable_offers(basket):
 
 def reduce_free_excess(in_basket, required_for_deal, to_remove):
     """
-    Given FFFFF return FFFF (i.e. given an amount of 5, the amount of free ones we can get is 1 without ruining the deal
+    Essentially return the amount of times we can reduce items safely
     :param amount:
     :param returned:
     :return:
-
+    e.g. in_basket, required_for_deal, to_remove > payable, saved
     2, 2, 1 > 2 payable, 0 free
     3, 2, 1 > 2 payable, 1 free
     4, 2, 1 > 3 payable, 1 free
@@ -89,23 +89,6 @@ def reduce_free_excess(in_basket, required_for_deal, to_remove):
     7, 2, 1 > 5 payable, 2 free
     8, 2, 1 > 6 payable, 2 free
     9, 2, 1 > 6 payable, 3 free
-    FFFFFFFFF
-
-    6:
-        6 - 2 = 4
-        4 - 1
-        3 - 2 = 1
-        1 - 1
-
-        saved twice, free 2
-
-    7:
-        sub req: 7 - 2 = 5
-        sub sav: 5 - 1
-        sub req: 4 - 2 = 2
-        sub sav: 2 - 1
-        cannot sub: 1 !=
-
     """
     used = 0
     saved = 0
@@ -118,8 +101,6 @@ def reduce_free_excess(in_basket, required_for_deal, to_remove):
             saved += to_remove
             in_basket -= to_remove
             sav_count += 1
-        # print("%d, %d, %d > %d payable, %d free %d" % (old_basket, required_for_deal, to_remove, used, saved, sav_count))
-        # print("U:%d, S:%d, B:%s" % (used, saved, in_basket))
     return sav_count
 
 
@@ -194,14 +175,14 @@ def checkout(skus):
     return total
 
 
-print(checkout("FF") == 20)   # 20
-print(checkout("FFF") == 20)  # 20
-print(checkout("FFFF") == 30)  # 30
-print(checkout("FFFFF") == 40)  # 40
-print(checkout("FFFFFF") == 40)  # 40
-print(checkout("FFFFFFF") == 50)  # 40
-print(checkout("FFFFFFFF") == 60)  # 40
-print(checkout("FFFFFFFFF") == 60)  # 40
+# print(checkout("FF") == 20)   # 20
+# print(checkout("FFF") == 20)  # 20
+# print(checkout("FFFF") == 30)  # 30
+# print(checkout("FFFFF") == 40)  # 40
+# print(checkout("FFFFFF") == 40)  # 40
+# print(checkout("FFFFFFF") == 50)  # 40
+# print(checkout("FFFFFFFF") == 60)  # 40
+# print(checkout("FFFFFFFFF") == 60)  # 40
 
 
 # checkout("EE")  # 80
@@ -218,6 +199,7 @@ print(checkout("FFFFFFFFF") == 60)  # 40
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
+
 
 
 
