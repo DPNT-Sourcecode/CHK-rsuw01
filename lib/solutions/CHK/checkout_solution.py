@@ -56,8 +56,7 @@ def get_applicable_discounts(basket):
         for offer in offers_for_code:
             required_items = offer[0][0]
             if count >= required_items:
-                fits = count // required_items
-                applicable_offers.append((fits, offer))
+                applicable_offers.append(offer)
 
     return applicable_offers
 
@@ -66,10 +65,14 @@ def prioritised_applicable_offers(basket):
     offers = get_applicable_discounts(basket)
 
     for offer in offers:
-        print("OFFER: %s, SAVINGS: %d" % (offer, calculate_discount_savings(offer[1])))
+        print("OFFER: %s, SAVINGS: %d" % (offer, calculate_discount_savings(offer)))
 
-    offers.sort(key=lambda x: calculate_discount_savings(x[1]))
+    offers.sort(key=lambda x: -calculate_discount_savings(x))
     return offers
+
+
+def apply_to_basket(offer, basket):
+    return basket
 
 
 def apply_discounts(basket):
@@ -78,8 +81,11 @@ def apply_discounts(basket):
     :param basket:
     :return:
     """
-    print(prioritised_applicable_offers(basket))
+    prioritised_offers = prioritised_applicable_offers(basket)
+    print([calculate_discount_savings(x) for x in prioritised_offers])
     cost_of_discounted = []
+    for offer in prioritised_offers:
+        basket = apply_to_basket(offer, basket)
     # for code, count in basket.items():
     #     if code not in specials:
     #         continue
@@ -121,6 +127,7 @@ checkout("B"),  # 30
 checkout("C"),  # 20
 checkout("D"),  # 15
 checkout("a"),  # -1
+
 
 
 
