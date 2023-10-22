@@ -153,12 +153,10 @@ def checkout(skus):
     return total
 
 
-checkout("AAA")  # 130
-
-checkout("FF")  # 20
-checkout("FFF")  # 30
-checkout("FFFF")  # 30
-checkout("FFFFF")  # 40
+print(checkout("FF") == 20)   # 20
+print(checkout("FFF") == 20)  # 20
+print(checkout("FFFF") == 30)  # 30
+print(checkout("FFFFF") == 40)  # 40
 
 
 # checkout("EE")  # 80
@@ -175,10 +173,3 @@ checkout("FFFFF")  # 40
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
-
-
-
-
-
-
-
