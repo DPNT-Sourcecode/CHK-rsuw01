@@ -38,7 +38,7 @@ def calculate_discount_savings(offer):
     offer_return = offer[2]
     savings = 0
     if offer_type == "NORMAL":
-        expected_to_pay = prices[offer_required[1]]
+        expected_to_pay = prices[offer_required[1]]*offer_required[0]
         savings = expected_to_pay - offer_return
     if offer_type == "FREE":
         expected_to_pay = prices[offer_return[1]]
@@ -64,6 +64,9 @@ def get_applicable_discounts(basket):
 
 def prioritised_applicable_offers(basket):
     offers = get_applicable_discounts(basket)
+
+    print([(offer, calculate_discount_savings(offer[1])) for offer in offers])
+
     offers.sort(key=lambda x: calculate_discount_savings(x[1]))
     return offers
 
@@ -117,5 +120,6 @@ checkout("B"),  # 30
 checkout("C"),  # 20
 checkout("D"),  # 15
 checkout("a"),  # -1
+
 
 
