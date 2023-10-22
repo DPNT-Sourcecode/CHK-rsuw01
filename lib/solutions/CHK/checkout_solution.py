@@ -74,7 +74,7 @@ def prioritised_applicable_offers(basket):
     return offers
 
 
-def free_excess(amount, returned):
+def reduce_free_excess(amount, required, returned):
     """
     Given FFFFF return FFFF (i.e. given an amount of 5, the amount of free ones we can get is 1 without ruining the deal
     :param amount:
@@ -82,6 +82,8 @@ def free_excess(amount, returned):
     :return:
     """
     returnable = amount // returned # Given 3 and 1, this is 1. Given 5 and 1, this is 1
+    print(amount, required, returned, returnable)
+    return returnable
 
 
 
@@ -101,15 +103,7 @@ def apply_to_basket(offer, basket):
         # Remove only B from the basket, original item not removed
         amount_in_basket = basket[requirements[1]]
         if offer_key == requirements[1]:
-            # if amount in basket is 3, excess is 1, so if excess, reduce amount by offer return amount
-            excess = amount_in_basket-requirements[0] # E.g. FFF => 1
-            # Self reduction
-            removable = offer_return[0]
-            while excess > 0:
-                excess = basket[requirements[1]] - requirements[0] # Basket amount - required amount
-
-                basket[offer_key] = basket[offer_key] - removable # Remove 1 each time essentially for F
-
+            basket[offer_key] = basket[offer_key] - reduce_free_excess(amount_in_basket, requirements[0], offer_return[0])
         else:
             fits = amount_in_basket // requirements[0]
             # Reduce basket by amount
@@ -133,19 +127,10 @@ def apply_discounts(basket):
     :return:
     """
     prioritised_offers = prioritised_applicable_offers(basket)
-    # print([calculate_discount_savings(x) for x in prioritised_offers])
     savings = 0
     for offer in prioritised_offers:
         basket, saved = apply_to_basket(offer, basket)
         savings += saved
-    # for code, count in basket.items():
-    #     if code not in specials:
-    #         continue
-    #     required_items = specials[code][0]
-    #     if count >= required_items:
-    #         fits = count // required_items
-    #         basket[code] = basket[code] - fits*required_items
-    #         cost_of_discounted.append(fits*specials[code][1])
     return basket, savings
 
 
@@ -192,6 +177,7 @@ print(checkout("FFFFF") == 40)  # 40
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
+
 
 
 
