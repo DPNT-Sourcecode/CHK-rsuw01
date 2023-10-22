@@ -86,13 +86,15 @@ def apply_to_basket(offer, basket):
         # Remove only B from the basket, original item not removed
         amount_in_basket = basket[requirements[1]]
         fits = amount_in_basket // requirements[0]
+        # Reduce basket by amount
         basket[offer_return[1]] = basket[offer_return[1]] - (fits*offer_return[0])
-        saved = calculate_discount_savings(offer)*fits
     if offer_type == "NORMAL":
         amount_in_basket = basket[requirements[1]]
         fits = amount_in_basket // requirements[0]
+        # Reduce basket by amount
         basket[requirements[1]] = basket[requirements[1]] - (fits*requirements[0])
-        saved = calculate_discount_savings(offer)*fits
+        # TODO: instead of returning saved here, we should be returning the full price or something?
+        saved = offer[2]*fits
 
     return basket, saved
 
@@ -145,7 +147,7 @@ def checkout(skus):
 
 checkout("AAABDB")  # 190)
 checkout("AAAAAAABDCC")  # 385)
-checkout("BBBEE")  # 95  # 2B, 2E.
+checkout("BBBEE")  # 125  # 2B deal + 2E = 45+80.
 checkout("BBBBEE")  # 155  # 2B+1B+2E = 45+30+80 = 75+80
 checkout(""),  # 0
 checkout("A"),  # 50
@@ -153,3 +155,4 @@ checkout("B"),  # 30
 checkout("C"),  # 20
 checkout("D"),  # 15
 checkout("a"),  # -1
+
