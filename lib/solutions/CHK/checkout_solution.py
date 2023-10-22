@@ -147,9 +147,9 @@ def checkout(skus):
     return total
 
 
-checkout("EE")
-checkout("EEB")
-checkout("EEEB")
+checkout("EE")  # 80
+checkout("EEB")  # 80
+checkout("EEEB")  # 120
 
 checkout("AAABDB")  # 190)
 checkout("AAAAAAABDCC")  # 385)
@@ -161,5 +161,6 @@ checkout("B"),  # 30
 checkout("C"),  # 20
 checkout("D"),  # 15
 checkout("a"),  # -1
+
 
 
