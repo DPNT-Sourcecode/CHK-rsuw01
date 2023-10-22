@@ -64,20 +64,37 @@ def get_applicable_discounts(basket):
 def prioritised_applicable_offers(basket):
     offers = get_applicable_discounts(basket)
 
-    for offer in offers:
-        print("OFFER: %s, SAVINGS: %d" % (offer, calculate_discount_savings(offer)))
+    # for offer in offers:
+    #     print("OFFER: %s, SAVINGS: %d" % (offer, calculate_discount_savings(offer)))
 
     offers.sort(key=lambda x: -calculate_discount_savings(x))
     return offers
 
 
 def apply_to_basket(offer, basket):
+    """
+    Apply to basket as many times as possible before returning the basket
+    :param offer:
+    :param basket:
+    :return:
+    """
     requirements = offer[0]
     offer_type = offer[1]
+    offer_return = offer[2]
+    saved = 0
     if offer_type == "FREE":
+        # Remove only B from the basket, original item not removed
         amount_in_basket = basket[requirements[1]]
-        fits = requirements[0] // amount_in_basket
-    return basket
+        fits = amount_in_basket // requirements[0]
+        basket[offer_return[1]] = basket[offer_return[1]] - (fits*offer_return[0])
+        saved = calculate_discount_savings(offer)*fits
+    if offer_type == "NORMAL":
+        amount_in_basket = basket[requirements[1]]
+        fits = amount_in_basket // requirements[0]
+        basket[requirements[1]] = basket[requirements[1]] - (fits*requirements[0])
+        saved = calculate_discount_savings(offer)*fits
+
+    return basket, saved
 
 
 def apply_discounts(basket):
@@ -87,10 +104,11 @@ def apply_discounts(basket):
     :return:
     """
     prioritised_offers = prioritised_applicable_offers(basket)
-    print([calculate_discount_savings(x) for x in prioritised_offers])
-    cost_of_discounted = []
+    # print([calculate_discount_savings(x) for x in prioritised_offers])
+    savings = 0
     for offer in prioritised_offers:
-        basket = apply_to_basket(offer, basket)
+        basket, saved = apply_to_basket(offer, basket)
+        savings += saved
     # for code, count in basket.items():
     #     if code not in specials:
     #         continue
@@ -99,26 +117,29 @@ def apply_discounts(basket):
     #         fits = count // required_items
     #         basket[code] = basket[code] - fits*required_items
     #         cost_of_discounted.append(fits*specials[code][1])
-    return basket, cost_of_discounted
+    return basket, savings
 
 
 def checkout(skus):
     if not isinstance(skus, str):
+        print("-1")
         return -1
     skus = [x for x in skus]
     basket = {}
     # Remap to count
     for item in skus:
         if item not in prices:
+            print("-1")
             return -1
         basket[item] = basket.get(item, 0) + 1
 
-    no_discount_basket, discount_costs = apply_discounts(basket)
+    no_discount_basket, saved = apply_discounts(basket)
 
     total = 0
     for code, quant in no_discount_basket.items():
         total += prices[code]*quant
-    total += sum(discount_costs)
+    total += saved
+    print(total)
     return total
 
 
@@ -132,6 +153,7 @@ checkout("B"),  # 30
 checkout("C"),  # 20
 checkout("D"),  # 15
 checkout("a"),  # -1
+
 
 
 
