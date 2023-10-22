@@ -87,7 +87,9 @@ def apply_to_basket(offer, basket):
         amount_in_basket = basket[requirements[1]]
         fits = amount_in_basket // requirements[0]
         # Reduce basket by amount
-        basket[offer_return[1]] = basket[offer_return[1]] - (fits*offer_return[0])
+        offer_key = offer_return[1]
+        if offer_key in basket:
+            basket[offer_key] = basket[offer_key] - (fits*offer_return[0])
     if offer_type == "NORMAL":
         amount_in_basket = basket[requirements[1]]
         fits = amount_in_basket // requirements[0]
@@ -145,6 +147,10 @@ def checkout(skus):
     return total
 
 
+checkout("EE")
+checkout("EEB")
+checkout("EEEB")
+
 checkout("AAABDB")  # 190)
 checkout("AAAAAAABDCC")  # 385)
 checkout("BBBEE")  # 125  # 2B deal + 2E = 45+80.
@@ -155,4 +161,5 @@ checkout("B"),  # 30
 checkout("C"),  # 20
 checkout("D"),  # 15
 checkout("a"),  # -1
+
 
