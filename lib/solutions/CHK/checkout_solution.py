@@ -30,18 +30,22 @@ specials = {
     "E": [(2, "FREE", (1, "B"))],
 }
 
+
 def get_applicable_discounts(basket):
+    applicable_offers = []
     for code, count in basket.items():
         if code not in specials:
             continue
 
         offers_for_code = specials[code]
-        applicable_offers = []
         for offer in offers_for_code:
             if count >= offer[0]:
-                applicable_offers.append(offer)
+                required_items = offer[0]
+                fits = count // required_items
+                applicable_offers.append((fits, offer))
 
     return applicable_offers
+
 
 def apply_discounts(basket):
     """
@@ -81,12 +85,13 @@ def checkout(skus):
     total += sum(discount_costs)
     return total
 
-# # print(checkout("AAABDB"))
-# # print(checkout("AAAAAAABDCC"))
-# print(checkout(""))
-# print(checkout("A"))
-# print(checkout("B"))
-# print(checkout("C"))
-# print(checkout("D"))
-# print(checkout("a"))
+# # print(checkout("AAABDB"), )
+# # print(checkout("AAAAAAABDCC"), 385)
+# print(checkout(""), 0)
+# print(checkout("A"), 50)
+# print(checkout("B"), 30)
+# print(checkout("C"), 20)
+# print(checkout("D"), 15)
+# print(checkout("a"), -1)
+
 
