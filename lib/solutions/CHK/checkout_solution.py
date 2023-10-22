@@ -179,6 +179,9 @@ print(checkout("FF") == 20)   # 20
 print(checkout("FFF") == 20)  # 20
 print(checkout("FFFF") == 30)  # 30
 print(checkout("FFFFF") == 40)  # 40
+print(checkout("FFFFFF") == 40)  # 40
+print(checkout("FFFFFFF") == 50)  # 40
+print(checkout("FFFFFFFF") == 60)  # 40
 
 
 # checkout("EE")  # 80
@@ -195,6 +198,7 @@ print(checkout("FFFFF") == 40)  # 40
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
+
 
 
 
