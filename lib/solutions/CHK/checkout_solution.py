@@ -53,6 +53,8 @@ def checkout(skus):
     basket = {}
     # Remap to count
     for item in skus:
+        if item not in prices:
+            return -1
         basket[item] = basket.get(item, 0) + 1
 
     no_discount_basket, discount_costs = apply_discounts(basket)
@@ -63,14 +65,15 @@ def checkout(skus):
     total += sum(discount_costs)
     return total
 
-# print(checkout("AAABDB"))
-# print(checkout("AAAAAAABDCC"))
-print(checkout(""))
-print(checkout("A"))
-print(checkout("B"))
-print(checkout("C"))
-print(checkout("D"))
-print(checkout("a"))
+# # print(checkout("AAABDB"))
+# # print(checkout("AAAAAAABDCC"))
+# print(checkout(""))
+# print(checkout("A"))
+# print(checkout("B"))
+# print(checkout("C"))
+# print(checkout("D"))
+# print(checkout("a"))
+
 
 
 
