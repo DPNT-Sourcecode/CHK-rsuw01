@@ -84,9 +84,9 @@ def apply_to_basket(offer, basket):
     requirements = offer[0]
     offer_type = offer[1]
     offer_return = offer[2]
-    offer_key = offer_return[1]
     saved = 0
     if offer_type == "FREE":
+        offer_key = offer_return[1]
         # Remove only B from the basket, original item not removed
         amount_in_basket = basket[requirements[1]]
         if offer_key == requirements[1]:
@@ -152,6 +152,9 @@ def checkout(skus):
     print(total)
     return total
 
+
+checkout("AAA")  # 130
+
 checkout("FF")  # 20
 checkout("FFF")  # 30
 checkout("FFFF")  # 30
@@ -172,6 +175,7 @@ checkout("FFFFF")  # 40
 # checkout("C"),  # 20
 # checkout("D"),  # 15
 # checkout("a"),  # -1
+
 
 
 
